@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.UserDao">
+    <!-- 查询用户信息，id的值对应dao的接口方法 -->
+    <select id="selectUserByUname"  resultType="com.po.MyUser" parameterType="com.po.MyUser">
+        select * from user where 1=1
+        <if test="uname !=null and uname!=''">
+            and uname like concat('%',#{uname},'%')
+        </if>
+    </select>
+
+    <select id="findAll" resultType="com.po.MyUser">
+        select * from user
+    </select>
+
+    <select id="selectUser" resultType="com.po.LoginUser">
+        select * from loginuser where username=#{username} and password=#{password}
+    </select>
+
+    <update id="updateUser" parameterType="com.po.MyUser">
+        update user set uid = #{uid},uname = #{uname},usex = #{usex} where uid = #{uid}
+    </update>
+
+    <delete id="deleteUserById" parameterType="com.po.MyUser">
+        delete from user where uid = #{uid}
+    </delete>
+
+    <select id="queryUserById" resultType="com.po.MyUser">
+        select * from user where uid = #{uid}
+    </select>
+
+    <insert id="addUser" parameterType="com.po.MyUser">
+        insert into user(uid,uname,usex) values (#{uid},#{uname},#{usex})
+    </insert>
+</mapper>
